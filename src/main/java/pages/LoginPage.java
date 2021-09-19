@@ -11,7 +11,9 @@ public class LoginPage extends AbstractPage {
     private final String userTextBox = "//input[@autocomplete='username']";
     private final String passwdTextBox = "//button[@type='password']";
     private final String signinButton = "//input[@value='Sign in']";
+    private final String authorizedButton = "//button[@name='Authorize']";
     private final String avatarImage = "//img[@id='nav-profile-image']";
+    private final String settingsLinkText = "/a[@href='/settings'";
 
     public LoginPage(WebDriver driver) {
         this.driver = driver;
@@ -30,12 +32,18 @@ public class LoginPage extends AbstractPage {
         clickOnElement(driver, signinButton);
     }
 
+    public void clickOnAuthorizeButton() {
+        clickOnElement(driver, authorizedButton);
+    }
+
     public String verifyLogginSuccess() {
         return getCurrentUrl(driver);
         // https://dev.to/?signin=true
     }
 
-    public SettingPage navigateToSettingPage() {
-        hover(driver, avatarImage)
+    public SettingsPage navigateToSettingPage() {
+        hover(driver, avatarImage);
+        clickOnElement(driver, settingsLinkText);
+        return new SettingsPage(driver);
     }
 }
