@@ -6,9 +6,8 @@ import org.openqa.selenium.WebDriver;
 import static common.TestBase.getObjectRepos;
 
 public class HomePage extends AbstractPage {
-    WebDriver driver;
-
     private final String loginLinkText = getObjectRepos("loginLinkText");
+    WebDriver driver;
 
     public HomePage(WebDriver driver) {
         this.driver = driver;

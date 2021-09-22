@@ -7,14 +7,13 @@ import static common.TestBase.getObjectRepos;
 
 
 public class LoginPage extends AbstractPage {
-    WebDriver driver;
-
     private final String githubButton = getObjectRepos("githubButton");
     private final String userTextBox = getObjectRepos("userTextBox");
     private final String passwdTextBox = getObjectRepos("passwdTextBox");
     private final String signinButton = getObjectRepos("signinButton");
     private final String avatarImage = getObjectRepos("avatarImage");
     private final String settingsLinkText = getObjectRepos("settingsLinkText");
+    WebDriver driver;
 
     public LoginPage(WebDriver driver) {
         this.driver = driver;
