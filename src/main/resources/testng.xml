@@ -3,10 +3,10 @@
 <suite name="All Test Suite">
     <test verbose="2" preserve-order="true" name="POM Maven Selenium">
         <classes>
-            <class name="testcases.NewTest">
-                <methods>
-                    <include name="testEasy"/>
-                </methods>
+            <class name="testcases.LoginPageTest">
+<!--                <methods>-->
+<!--                    <include name="verifyLoginByGithubAccount"/>-->
+<!--                </methods>-->
             </class>
         </classes>
     </test>

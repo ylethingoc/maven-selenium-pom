@@ -1,44 +1,36 @@
 package pages;
 
 import common.AbstractPage;
-import common.Constants;
 import org.openqa.selenium.WebDriver;
+
+import static common.TestBase.getObjectRepos;
 
 
 public class LoginPage extends AbstractPage {
     WebDriver driver;
-    private final String githubButton = "//button[contains(text(), 'Github')]";
-    private final String userTextBox = "//input[@autocomplete='username']";
-    private final String passwdTextBox = "//button[@type='password']";
-    private final String signinButton = "//input[@value='Sign in']";
-    private final String authorizedButton = "//button[@name='Authorize']";
-    private final String avatarImage = "//img[@id='nav-profile-image']";
-    private final String settingsLinkText = "/a[@href='/settings'";
+
+    private final String githubButton = getObjectRepos("githubButton");
+    private final String userTextBox = getObjectRepos("userTextBox");
+    private final String passwdTextBox = getObjectRepos("passwdTextBox");
+    private final String signinButton = getObjectRepos("signinButton");
+    private final String avatarImage = getObjectRepos("avatarImage");
+    private final String settingsLinkText = getObjectRepos("settingsLinkText");
 
     public LoginPage(WebDriver driver) {
         this.driver = driver;
     }
 
-    public void selectContinueWithGithub() {
+    public void selectContinueWithGitHub() {
         clickOnElement(driver, githubButton);
     }
 
     public void inputLoginInfo() {
-        inputIntoTextBox(driver, userTextBox, Constants.USERNAME);
-        inputIntoTextBox(driver, passwdTextBox, Constants.PASSWORD);
+        inputIntoTextBox(driver, userTextBox, getObjectRepos("loginEmail"));
+        inputIntoTextBox(driver, passwdTextBox, getObjectRepos("loginPassword"));
     }
 
     public void clickOnSigninButton() {
         clickOnElement(driver, signinButton);
-    }
-
-    public void clickOnAuthorizeButton() {
-        clickOnElement(driver, authorizedButton);
-    }
-
-    public String verifyLogginSuccess() {
-        return getCurrentUrl(driver);
-        // https://dev.to/?signin=true
     }
 
     public SettingsPage navigateToSettingPage() {

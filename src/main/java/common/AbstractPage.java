@@ -15,14 +15,6 @@ public abstract class AbstractPage {
     private WebDriverWait explicitWait;
     private Actions action;
 
-    public String getTitle(WebDriver driver) {
-        return driver.getTitle();
-    }
-
-    public String getCurrentUrl(WebDriver driver) {
-        return driver.getCurrentUrl();
-    }
-
     public WebElement findElement(WebDriver driver, String locator) {
         return driver.findElement(By.xpath(locator));
     }
@@ -31,7 +23,7 @@ public abstract class AbstractPage {
         element = findElement(driver, locator);
         element.click();
     }
-    
+
     public void clickOnElementByJS(WebDriver driver, String locator) {
         js = (JavascriptExecutor) driver;
         element = findElement(driver, locator);
@@ -52,5 +44,10 @@ public abstract class AbstractPage {
         action = new Actions(driver);
         element = findElement(driver, locator);
         action.moveToElement(element).perform();
+    }
+
+    public String getAttribute(WebDriver driver, String locator, String attribute) {
+        element = findElement(driver, locator);
+        return element.getAttribute(attribute);
     }
 }

@@ -12,21 +12,26 @@ import java.io.IOException;
 import java.util.Properties;
 import java.util.concurrent.TimeUnit;
 
+
 public class TestBase {
     public static WebDriver driver;
-    public static Properties prop;
+    private static Properties prop;
 
-    public static void InitialBrowser() {
+    public static String getObjectRepos(String object) {
         try {
             prop = new Properties();
-            FileInputStream file = new FileInputStream(System.getProperty("user.dir") + "src/main/java/common/config.properties");
+            FileInputStream file = new FileInputStream(System.getProperty("user.dir") + "\\src\\main\\java\\common\\ObjectRepos.properties");
             prop.load(file);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
         }
-        String browserName = prop.getProperty("browser");
+        return prop.getProperty(object);
+    }
+
+    public static void InitialBrowser() {
+        String browserName = getObjectRepos("browser");
 
         if (browserName.equals("chrome")) {
             WebDriverManager.chromedriver().setup();
@@ -44,7 +49,6 @@ public class TestBase {
         driver.manage().timeouts().pageLoadTimeout(Constants.PAGE_LOAD_TIMEOUT, TimeUnit.SECONDS);
         driver.manage().timeouts().implicitlyWait(Constants.IMPLICIT_WAIT, TimeUnit.SECONDS);
 
-        driver.get(prop.getProperty("url"));
+        driver.get(getObjectRepos("url"));
     }
-
 }
