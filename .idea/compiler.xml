@@ -10,5 +10,8 @@
         <module name="pom-maven-selenium" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="maven-selenium-pom" target="16" />
+    </bytecodeTargetLevel>
   </component>
 </project>
