@@ -6,15 +6,15 @@ import org.openqa.selenium.WebDriver;
 import static common.TestBase.getObjectRepos;
 
 public class HomePage extends AbstractPage {
-    private final String loginLinkText = getObjectRepos("loginLinkText");
+    private final String loginButton = getObjectRepos("loginButton");
     WebDriver driver;
 
     public HomePage(WebDriver driver) {
         this.driver = driver;
     }
 
-    public LoginPage clickOnLoginLinkText() {
-        clickOnElement(driver, loginLinkText);
+    public LoginPage clickOnLoginButton() {
+        clickOnElement(driver, loginButton);
         return new LoginPage(driver);
     }
 }

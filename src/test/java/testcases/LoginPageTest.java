@@ -19,25 +19,24 @@ public class LoginPageTest extends TestBase {
     public void beforeMethod() {
         InitialBrowser();
         homePage = new HomePage(driver);
-        loginPage = homePage.clickOnLoginLinkText();
+        loginPage = homePage.clickOnLoginButton();
     }
 
     @Test
     public void verifyLoginByGithubAccount() {
-        loginPage.selectContinueWithGitHub();
         loginPage.inputLoginInfo();
         loginPage.clickOnSigninButton();
+        loginPage.waitForNavigationCompleted();
         String currentUrl = driver.getCurrentUrl();
-        assertEquals("The url did not match", "https://dev.to/?signin=true", currentUrl);
+        assertEquals("The url did not match", "https://my-learning.w3schools.com/", currentUrl);
     }
 
     @Test
     public void verifyRelatedInfo() {
         settingsPage = loginPage.navigateToSettingPage();
         String[] attributes = settingsPage.getRelatedInfo();
-        assertEquals("The Name did not match", getObjectRepos("loginUser"), attributes[0]);
-        assertEquals("The Username did not match", getObjectRepos("loginUser"), attributes[1]);
-        assertEquals("The Email did not match", getObjectRepos("loginEmail"), attributes[2]);
+        assertEquals("The First Name did not match", getObjectRepos("firstName"), attributes[0]);
+        assertEquals("The Last Name did not match", getObjectRepos("lastName"), attributes[1]);
     }
 
     @AfterClass
