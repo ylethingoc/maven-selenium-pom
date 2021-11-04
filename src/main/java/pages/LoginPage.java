@@ -12,15 +12,20 @@ public class LoginPage extends AbstractPage {
     private final String signinButton = getObjectRepos("signinButton");
     private final String settingsLinkText = getObjectRepos("settingsLinkText");
     private final String logoutButton = getObjectRepos("logoutButton");
+    private final String warningMessage = getObjectRepos("warningMessage");
+    private final String errorMessage = getObjectRepos("errorMessage");
     WebDriver driver;
 
     public LoginPage(WebDriver driver) {
         this.driver = driver;
     }
 
-    public void inputLoginInfo() {
-        inputIntoTextBox(driver, emailTextBox, getObjectRepos("loginEmail"));
-        inputIntoTextBox(driver, passwdTextBox, getObjectRepos("loginPassword"));
+    public void inputIntoEmailTextBox(String email) {
+        inputIntoTextBox(driver, emailTextBox, email);
+    }
+
+    public void inputIntoPasswordTextBox(String password) {
+        inputIntoTextBox(driver, passwdTextBox, password);
     }
 
     public void clickOnSigninButton() {
@@ -29,6 +34,21 @@ public class LoginPage extends AbstractPage {
 
     public void waitForNavigationCompleted() {
         elementToBeClickable(driver, logoutButton);
+    }
+
+    public boolean isWarningDisplayed() {
+        return isDisplayed(driver, warningMessage);
+    }
+
+    public String getWarningMessage() {
+        return getTextFromElement(driver, warningMessage);
+    }
+
+    public boolean isErrorDisplayed() {
+        return isDisplayed(driver, errorMessage);
+    }
+    public String getErrorMessage() {
+        return getTextFromElement(driver, errorMessage);
     }
 
     public SettingsPage navigateToSettingPage() {

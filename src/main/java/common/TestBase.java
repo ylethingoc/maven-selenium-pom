@@ -17,7 +17,7 @@ public class TestBase {
     public static WebDriver driver;
     private static Properties prop;
 
-    public static String getObjectRepos(String object) {
+    public TestBase() {
         try {
             prop = new Properties();
             FileInputStream file = new FileInputStream(System.getProperty("user.dir") + "\\src\\main\\java\\common\\ObjectRepos.properties");
@@ -27,7 +27,14 @@ public class TestBase {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public static String getObjectRepos(String object) {
         return prop.getProperty(object);
+    }
+
+    public static void setObjectRepos(String object, String value) {
+        prop.setProperty(object, value);
     }
 
     public static void InitialBrowser() {
@@ -48,7 +55,5 @@ public class TestBase {
         driver.manage().deleteAllCookies();
         driver.manage().timeouts().pageLoadTimeout(Constants.PAGE_LOAD_TIMEOUT, TimeUnit.SECONDS);
         driver.manage().timeouts().implicitlyWait(Constants.IMPLICIT_WAIT, TimeUnit.SECONDS);
-
-        driver.get(getObjectRepos("url"));
     }
 }

@@ -19,8 +19,7 @@ public abstract class AbstractPage {
     }
 
     public void clickOnElement(WebDriver driver, String locator) {
-        element = findElement(driver, locator);
-        element.click();
+        findElement(driver, locator).click();
     }
 
     public void clickOnElementByJS(WebDriver driver, String locator) {
@@ -30,8 +29,7 @@ public abstract class AbstractPage {
     }
 
     public void inputIntoTextBox(WebDriver driver, String locator, String value) {
-        element = findElement(driver, locator);
-        element.sendKeys(value);
+        findElement(driver, locator).sendKeys(value);
     }
 
     public void elementToBeClickable(WebDriver driver, String locator) {
@@ -48,5 +46,21 @@ public abstract class AbstractPage {
     public String getAttribute(WebDriver driver, String locator, String attribute) {
         element = findElement(driver, locator);
         return element.getAttribute(attribute);
+    }
+
+    public boolean isDisplayed(WebDriver driver, String locator) {
+        return driver.findElement(By.xpath(locator)).isDisplayed();
+    }
+
+    public void clearText(WebDriver driver, String locator) {
+       findElement(driver, locator).clear();
+    }
+
+    public String getTextFromElement(WebDriver driver, String locator) {
+        return driver.findElement(By.xpath(locator)).getText();
+    }
+
+    public void openUrl(WebDriver driver, String url) {
+        driver.get(url);
     }
 }

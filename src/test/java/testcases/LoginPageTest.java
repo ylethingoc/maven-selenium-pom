@@ -3,40 +3,64 @@ package testcases;
 import common.TestBase;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 import pages.HomePage;
 import pages.LoginPage;
-import pages.SettingsPage;
 
-import static org.testng.AssertJUnit.assertEquals;
+import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.assertTrue;
 
 public class LoginPageTest extends TestBase {
     LoginPage loginPage;
     HomePage homePage;
-    SettingsPage settingsPage;
 
     @BeforeClass
     public void beforeMethod() {
         InitialBrowser();
         homePage = new HomePage(driver);
+    }
+
+    @BeforeMethod
+    public void BeforeMethod() {
+        homePage.gotoW3SchoolHomePage();
         loginPage = homePage.clickOnLoginButton();
     }
 
-    @Test
-    public void verifyLoginByGithubAccount() {
-        loginPage.inputLoginInfo();
+    @Test(enabled = true)
+    public void loginWithEmptyEmailPassword() {
+        loginPage.clickOnSigninButton();
+        assertTrue(loginPage.isWarningDisplayed());
+        String warningMessage = loginPage.getWarningMessage();
+        assertEquals(warningMessage, "Please enter an email");
+    }
+
+    @Test(enabled = true)
+    public void loginWithInvalidEmail() {
+        loginPage.inputIntoEmailTextBox("invalid_email_format");
+        loginPage.clickOnSigninButton();
+        assertTrue(loginPage.isWarningDisplayed());
+        String warningMessage = loginPage.getWarningMessage();
+        assertEquals(warningMessage , "Looks like you forgot something");
+    }
+
+    @Test(enabled = true)
+    public void loginWithInvalidPassword() {
+        loginPage.inputIntoEmailTextBox(getObjectRepos("loginEmail"));
+        loginPage.clickOnSigninButton();
+        assertTrue(loginPage.isErrorDisplayed());
+        String errorMessage = loginPage.getErrorMessage();
+        assertEquals(errorMessage, "Make sure you type your email and password correctly. Both your password and email are case-sensitive.");
+    }
+
+    @Test(enabled = true)
+    public void loginWithValidAccount() {
+        loginPage.inputIntoEmailTextBox(getObjectRepos("loginEmail"));
+        loginPage.inputIntoPasswordTextBox(getObjectRepos("loginPassword"));
         loginPage.clickOnSigninButton();
         loginPage.waitForNavigationCompleted();
         String currentUrl = driver.getCurrentUrl();
-        assertEquals("The url did not match", "https://my-learning.w3schools.com/", currentUrl);
-    }
-
-    @Test
-    public void verifyRelatedInfo() {
-        settingsPage = loginPage.navigateToSettingPage();
-        String[] attributes = settingsPage.getRelatedInfo();
-        assertEquals("The First Name did not match", getObjectRepos("firstName"), attributes[0]);
-        assertEquals("The Last Name did not match", getObjectRepos("lastName"), attributes[1]);
+        assertEquals(currentUrl,"https://my-learning.w3schools.com/");
     }
 
     @AfterClass

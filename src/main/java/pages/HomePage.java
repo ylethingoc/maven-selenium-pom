@@ -13,6 +13,10 @@ public class HomePage extends AbstractPage {
         this.driver = driver;
     }
 
+    public void gotoW3SchoolHomePage() {
+        openUrl(driver, getObjectRepos("url"));
+    }
+
     public LoginPage clickOnLoginButton() {
         clickOnElement(driver, loginButton);
         return new LoginPage(driver);
