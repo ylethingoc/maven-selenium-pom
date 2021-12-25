@@ -47,6 +47,7 @@ public class LoginPageTest extends TestBase {
     @Test(enabled = true)
     public void loginWithInvalidPassword() {
         loginPage.inputIntoEmailTextBox(getObjectRepos("loginEmail"));
+        loginPage.inputIntoPasswordTextBox("12345");
         loginPage.clickOnSigninButton();
         assertTrue(loginPage.isErrorDisplayed());
         String errorMessage = loginPage.getErrorMessage();
