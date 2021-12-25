@@ -8,7 +8,7 @@ import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-public abstract class AbstractPage {
+public abstract class AbstractPage implements Constants {
     private JavascriptExecutor js;
     private WebElement element;
     private WebDriverWait explicitWait;
@@ -33,7 +33,7 @@ public abstract class AbstractPage {
     }
 
     public void elementToBeClickable(WebDriver driver, String locator) {
-        explicitWait = new WebDriverWait(driver, Constants.WAIT_TIME_20_SEC);
+        explicitWait = new WebDriverWait(driver, WAIT_TIME_20_SEC);
         explicitWait.until(ExpectedConditions.elementToBeClickable(By.xpath(locator)));
     }
 
